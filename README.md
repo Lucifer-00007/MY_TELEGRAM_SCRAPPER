@@ -34,16 +34,17 @@
 `$ cd TeleGram-Scraper`
 
 * Create Virtual Environment:
+
 `$ python3 -m venv .venv`
         --or--
 `$ python -m venv .venv`
 
 
 * Enter Virtual Environment:
+
 `$ source .venv/bin/activate`
         --or--
 `$ .venv\Scripts\activate`
-
 
 * Install requirements
 
