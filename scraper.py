@@ -1,6 +1,7 @@
 from telethon.sync import TelegramClient
 from telethon.tl.functions.messages import GetDialogsRequest
 from telethon.tl.types import InputPeerEmpty
+from telethon.errors import PhoneNumberFloodError, SessionPasswordNeededError
 import os, sys
 import configparser
 import csv
@@ -39,7 +40,14 @@ if not client.is_user_authorized():
     client.send_code_request(phone)
     os.system('clear')
     banner()
-    client.sign_in(phone, input(gr+'[+] Enter the code: '+re))
+    try:
+        client.sign_in(phone, input(gr+'[+] Enter the code: '+re))
+    except PhoneNumberFloodError:
+        print("You've requested the code too many times. Try again later.")
+        sys.exit(1)
+    except SessionPasswordNeededError:
+        password = input(gr+'[+] Enter your 2FA password: '+re)
+        client.sign_in(password=password)
  
 os.system('clear')
 banner()
